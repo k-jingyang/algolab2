@@ -14,13 +14,12 @@ public class HashTable {
         return this.slots;
     }
 
-    public void doubleHashingInsert(int key, int value){
+    public void insertDoubleHashing(int key, int value){
         
     }
 
-    public int chainHashingInsert(int key, String value){
-        int start = HashMapFunction.hashMap(key);
-        int index = start;
+    public int insertChainHashing(int key, String value){
+        int index = HashMapFunction.hashMap(key);
         if(slots[index] == null){
             slots[index] = new HashTableSlotChain(key, value, null);
         }
@@ -35,14 +34,33 @@ public class HashTable {
         return 0;
     }
 
-    public void printChainHashingTable(){
+    public String searchChainHashing(int key){
+        int index = HashMapFunction.hashMap(key);
+        if(slots[index].getKey()==key){
+            return slots[index].getValue();
+        }
+        else{
+            HashTableSlotChain p = ((HashTableSlotChain)slots[index]).getNext();
+            while(p!=null){
+                if(p.getKey() == key){
+                    return p.getValue();
+                }
+                p = p.getNext();
+            }
+        }
+        return null; 
+    }
+
+    public void printChainHashing(){
         for(int i = 0; i< slots.length; i++){
             HashTableSlotChain p = (HashTableSlotChain)slots[i];
             while(p!=null){
                 System.out.print(p.getKey() + "-" + p.getValue() + "  ");
                 p = p.getNext();
             }
-            System.out.println();
+            if(slots[i]!=null){
+                System.out.println();
+            }
         }
     }
 }
