@@ -14,10 +14,50 @@ public class HashTable {
         return this.slots;
     }
 
-    public void insertDoubleHashing(int key, int value){
-        
+    //Does not print the chained keys and values
+    public void printHashTable(){
+        for(int i = 0; i< slots.length; i++){
+            if(slots[i]!=null){
+                System.out.println(slots[i].getKey() + "-" + slots[i].getValue() + "  ");
+            }
+        }
     }
 
+    //Below are Double Hashing functions
+
+    //Returns 1 if successful, returns 0 if failure
+    public int insertDoubleHashing(int key, String value){
+        int start = HashMapFunction.hashMap(key);
+        int hashIncr = HashMapFunction.incrHash(key);
+        int index = start;
+        while(slots[index]!=null){
+            index = HashMapFunction.reHash(index, hashIncr);
+            if(index == start){
+                return 0;
+            }
+        }
+        slots[index] = new HashTableSlot(key, value);
+        return 1;
+    }
+
+    public String searchDoubleHashing(int key){
+        int start = HashMapFunction.hashMap(key);
+        int hashIncr = HashMapFunction.incrHash(key);
+        int index = start;
+        while(slots[index].getKey()!=key){
+            index = HashMapFunction.reHash(index, hashIncr);
+            if(index == start){
+                return null;
+            }
+        }
+        return slots[index].getValue();
+    }
+
+
+
+    //Below arer Chain Hashing functions
+
+    //Returns 1 if successful, returns 0 if failure
     public int insertChainHashing(int key, String value){
         int index = HashMapFunction.hashMap(key);
         if(slots[index] == null){
