@@ -18,7 +18,7 @@ public class HashTable {
     public void printHashTable(){
         for(int i = 0; i< slots.length; i++){
             if(slots[i]!=null){
-                System.out.println(slots[i].getKey() + "-" + slots[i].getValue() + "  ");
+                System.out.println("index["+ i + "]"+slots[i].getKey() + "-" + slots[i].getValue() + "  ");
             }
         }
     }
@@ -32,6 +32,9 @@ public class HashTable {
         int index = start;
         while(slots[index]!=null){
             index = HashMapFunction.reHash(index, hashIncr);
+            if(key == 505){
+            System.out.println("index = " + index);
+            }
             if(index == start){
                 return 0;
             }
@@ -46,6 +49,8 @@ public class HashTable {
         int index = start;
         while(slots[index].getKey()!=key){
             index = HashMapFunction.reHash(index, hashIncr);
+            
+       // System.out.println("index = " +index + " " + key);
             if(index == start){
                 return null;
             }
