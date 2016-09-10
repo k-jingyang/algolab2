@@ -1,4 +1,4 @@
-To run in cmd:
+## HOW TO RUN
 
 java App &lt;data set size&gt; &lt;search term to search for&gt;
 
