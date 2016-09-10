@@ -5,11 +5,11 @@ import java.io.IOException;
 
 public class App {
    public static void main(String[] args){
-      testRun(100, 50);
-      testRun(300, 150);
-      testRun(500, 250);
-   //   testRun(700, 350);
-    //  testRun(1000, 555);
+      testRun(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+      //testRun(300, 150);
+      //testRun(500, 250);
+      //testRun(700, 350);
+      //testRun(1000, 555);
    }
    
    public static void testRun(int size, int searchInt){
