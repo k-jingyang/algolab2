@@ -1,5 +1,6 @@
 //Class for hash table
 import java.util.Arrays;
+import java.util.ArrayList;
 public class HashTable {
    private HashTableSlot slots[];
 
@@ -28,33 +29,53 @@ public class HashTable {
    //Below are Double Hashing functions
 
    //Returns 1 if successful, returns 0 if failure
-   public int insertDoubleHashing(int key, String value){
+   public ArrayList insertDoubleHashing(int key, String value){
+      ArrayList result = new ArrayList(); //[0] = result, [1] = number of searches
+      int count = 1;
       int start = HashMapFunction.hashMap(key);
       int hashIncr = HashMapFunction.incrHash(key);
       int index = start;
       while(slots[index]!=null){
          index = HashMapFunction.reHash(index, hashIncr);
-         if(key == 505){
-         }
+         count++;
          if(index == start){
-            return 0;
+            result.add(0);
+            result.add(count);
+            return result;
          }
       }
       slots[index] = new HashTableSlot(key, value);
-      return 1;
+      result.add(1);
+      result.add(count);
+      return result;
    }
 
-   public String searchDoubleHashing(int key){
+   public ArrayList searchDoubleHashing(int key){
+      ArrayList result = new ArrayList(); //[0] = result (String), [1] = number of searches
+      int count = 1;
       int start = HashMapFunction.hashMap(key);
       int hashIncr = HashMapFunction.incrHash(key);
       int index = start;
-      while(slots[index].getKey()!=key){
-         index = HashMapFunction.reHash(index, hashIncr);
-         if(index == start){
-            return null;
-         }
+      try{
+        while(slots[index].getKey()!=key){
+            //
+            index = HashMapFunction.reHash(index, hashIncr);
+            count++;
+            if(index == start){
+                result.add(null);
+                result.add(count);
+                return result;
+            }
+        }
+      }catch(Exception e){
+          count++;
+          result.add(null);
+          result.add(count);
+          return result;
       }
-      return slots[index].getValue();
+      result.add(slots[index].getValue());
+      result.add(count);
+      return result;
    }
 
 
@@ -62,7 +83,9 @@ public class HashTable {
    //Below arer Chain Hashing functions
 
    //Returns 1 if successful, returns 0 if failure
-   public int insertChainHashing(int key, String value){
+   public ArrayList insertChainHashing(int key, String value){
+      ArrayList result = new ArrayList(); //[0] = result, [1] = number of searches
+      int count = 1;
       int index = HashMapFunction.hashMap(key);
       if(slots[index] == null){
          slots[index] = new HashTableSlotChain(key, value, null);
@@ -70,29 +93,43 @@ public class HashTable {
       else{
          HashTableSlotChain p = (HashTableSlotChain)slots[index];
          while(p.getNext()!=null){
+            count++;
             p = p.getNext();
          }
          p.setNext(new HashTableSlotChain(key, value, null));
-         return 1;
+         result.add(1);
+         result.add(count);
+         return result;
       }
-      return 0;
+      result.add(0);
+      result.add(count);
+      return result;
    }
 
-   public String searchChainHashing(int key){
+   public ArrayList searchChainHashing(int key){
+      ArrayList result = new ArrayList(); //[0] = result (string), [1] = number of searches
+      int count = 1;
       int index = HashMapFunction.hashMap(key);
       if(slots[index].getKey()==key){
-         return slots[index].getValue();
+         result.add(slots[index].getValue());
+         result.add(count);
+         return result;
       }
       else{
          HashTableSlotChain p = ((HashTableSlotChain)slots[index]).getNext();
          while(p!=null){
+            count++;
             if(p.getKey() == key){
-               return p.getValue();
+                result.add(p.getValue());
+                result.add(count);
+                return result;
             }
             p = p.getNext();
          }
       }
-      return null; 
+      result.add(null);
+      result.add(count);
+      return result;
    }
 
    public void printChainHashing(){

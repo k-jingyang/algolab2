@@ -6,7 +6,7 @@ public class HashMapFunction {
     }
 
     public static int incrHash(int key){
-        return key % 13;
+        return (key % 13) + 1;
     }
 
     public static int reHash(int j, int d){
