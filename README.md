@@ -1,6 +1,6 @@
 To run in cmd:
 
-java App <data set size> <search term to search for>
+java App &lt;data set size&gt; &lt;search term to search for&gt;
 
 E.g.
 
