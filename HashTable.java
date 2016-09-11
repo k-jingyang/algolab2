@@ -57,6 +57,7 @@ public class HashTable {
       int hashIncr = HashMapFunction.incrHash(key);
       int index = start;
       try{
+		 
         while(slots[index].getKey()!=key){
             //
             index = HashMapFunction.reHash(index, hashIncr);
@@ -68,7 +69,6 @@ public class HashTable {
             }
         }
       }catch(Exception e){
-          count++;
           result.add(null);
           result.add(count);
           return result;
@@ -110,23 +110,27 @@ public class HashTable {
       ArrayList result = new ArrayList(); //[0] = result (string), [1] = number of searches
       int count = 1;
       int index = HashMapFunction.hashMap(key);
-      if(slots[index].getKey()==key){
-         result.add(slots[index].getValue());
-         result.add(count);
-         return result;
-      }
-      else{
-         HashTableSlotChain p = ((HashTableSlotChain)slots[index]).getNext();
-         while(p!=null){
-            count++;
-            if(p.getKey() == key){
-                result.add(p.getValue());
-                result.add(count);
-                return result;
-            }
-            p = p.getNext();
-         }
-      }
+	  try{
+		  if(slots[index].getKey()==key){
+			 result.add(slots[index].getValue());
+			 result.add(count);
+			 return result;
+		  }
+		  else{
+			 HashTableSlotChain p = ((HashTableSlotChain)slots[index]).getNext();
+			 while(p!=null){
+				count++;
+				if(p.getKey() == key){
+					result.add(p.getValue());
+					result.add(count);
+					return result;
+				}
+				p = p.getNext();
+			 }
+		  }
+	  }catch(Exception e){
+		  
+	  }
       result.add(null);
       result.add(count);
       return result;
