@@ -110,13 +110,19 @@ public class App {
       timeTaken2/=count;
       searchTaken2/=count;
       if(errorFlag1==true){
-            System.out.println("CHAIN HASHING SEARCH FAIL");
+            System.out.println("\nCHAIN HASHING SEARCH FAIL");
       }
+	  else{
+		  System.out.println("\nCHAIN HASHING SEARCH SUCCESSFUL");
+	  }
       System.out.println("Chain Hashing search time=\t " +timeTaken1 + " NANOseconds");
       System.out.println("Chain Hashing searches count=\t " +searchTaken1+ " times");
       if(errorFlag2==true){
-            System.out.println("DOUBLE HASHING SEARCH FAIL");
+           System.out.println("\nDOUBLE HASHING SEARCH FAIL");
       }
+	  else{
+		  System.out.println("\nDOUBLE HASHING SEARCH SUCCESSFUL");
+	  }
       System.out.println("Double Hashing search time=\t " +timeTaken2+ " NANOseconds");
       System.out.println("Double Hashing searches count=\t " +searchTaken2+ " times");
    }
